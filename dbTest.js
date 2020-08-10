@@ -1,15 +1,20 @@
 // import our database models
 const db = require('./models')
 
-db.user.findOrCreate({
-    where: {firstName: 'Pete'},
-    defaults: {
-        lastName: 'Fitton',
-    age: 100,
-    email: 'Pete@TheDude.com'
-}
+db.user.findAll()
+.then(users=>{
+    users.forEach(user=>{
+        console.log(user.get())
+    })
 })
-.then(([user, created])=>{
-    console.log(created)
-    console.log(user)
-})
+//     where: {firstName: 'Pete'},
+//     defaults: {
+//         lastName: 'Fitton',
+//     age: 100,
+//     email: 'Pete@TheDude.com'
+// }
+// })
+// .then(([user, created])=>{
+//     console.log(created)
+//     console.log(user)
+// })
