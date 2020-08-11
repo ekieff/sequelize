@@ -2,26 +2,34 @@
 const db = require('./models')
 const user = require('./models/user')
 
-// db.user.findAll()
-// .then(users=>{
-//     users.forEach(user=>{
-//         console.log(user.get())
-//     })
-// })
-
 db.user.findOne({
     where:{
         firstName: 'Taylor'
-    }})
-.then(user=>{
-    console.log("adding pet to this user:", user.firstName)
-    user.createPet({
-      name: 'Max',
-      description: 'Tabby Cat'
-    }).then(dog=>{
-      console.log(dog);
-    });
-});
+    }
+}).then(user=>{
+    //load pets for this user
+    user.getPets().then(pets=>{
+      //do something with pets here
+      pets.forEach(pet=>{
+          console.log(`${user.firstName}'s pets:`)
+          console.log(pet.name)
+      })
+    })
+})
+//add a pet to a user
+// db.user.findOne({
+//     where:{
+//         firstName: 'Taylor'
+//     }})
+// .then(user=>{
+//     console.log("adding pet to this user:", user.firstName)
+//     user.createPet({
+//       name: 'Max',
+//       description: 'Tabby Cat'
+//     }).then(dog=>{
+//       console.log(dog);
+//     });
+// });
 
 // db.user.findByPk(2).then(foundUser=>{
 //     console.log(`I found ${foundUser.firstName}`)
